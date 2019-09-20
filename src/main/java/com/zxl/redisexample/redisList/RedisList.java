@@ -23,7 +23,7 @@ public class RedisList {
     public void addUser(@PathVariable("userId") String userId) {
         // 获取userId的hashCode的值
         int hashValue = Math.abs(userId.hashCode());
-        // hashCode和string的bit长度2的32次方取余 拿取元素和数组的映射
+        // hashCode和string的bit长度2的32次方取余 拿取元素和数组的映射/ 512M能够存储40亿个数据
         long index = (long)(hashValue % Math.pow(2, 32));
         // 设置redis里面二进制数据中的值，对应位置为true，表示已经占用一个位置 原理为布隆过滤器
         redisTemplate.opsForValue().setBit("user_bloom_filter", index, true);
@@ -32,7 +32,7 @@ public class RedisList {
     }
 
     /**
-     *
+     * 获取人员前先判断该人员是否在白名单/黑名单中
      * @return
      */
     @GetMapping(value = "/findUserById/{userId}")
