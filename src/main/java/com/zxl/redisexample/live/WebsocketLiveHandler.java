@@ -29,6 +29,6 @@ public class WebsocketLiveHandler extends TextWebSocketHandler {
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        super.afterConnectionClosed(session, status);
+        System.out.println("用户走了" + session);
     }
 }
