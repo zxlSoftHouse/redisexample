@@ -23,8 +23,8 @@ public class LiveController {
     public Object roomInfo(String roomId) {
         // 统计在线房间的总人数
         Long count = redisTemplate.opsForZSet().zCard("roominfo::" + roomId);
-        // 查询等级排序之后 等级最前面的两个用户
-        Set set = redisTemplate.opsForZSet().reverseRangeByScore("roominfo::" + roomId, 10, 5, 0, 2);
+        // 查询等级是5-10级排序之后 等级最前面的两个用户
+        Set set = redisTemplate.opsForZSet().reverseRangeByScore("roominfo::" + roomId, 5, 10, 0, 2);
         for (Object o : set) {
             System.out.println(o.toString());
         }
